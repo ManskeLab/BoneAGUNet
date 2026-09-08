@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=67", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "BoneAGUNet"
+version = "0.1.0"
+description = "Atlas-guided MCP2/MCP3 bone erosion segmentation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Yousif Al-Khoury"}]
+dependencies = [
+  "huggingface_hub>=0.24",
+  "numpy",
+  "scipy",
+  "scikit-image",
+  "SimpleITK",
+  "nnunetv2 @ git+https://github.com/ManskeLab/multichannel_attention_nnUNet.git@0a1a2b80758cd31d5378b7db622dd33a49fb667a",
+]
+
+[project.scripts]
+boneagunet = "boneagunet.cli:main"
+boneagunet-install = "boneagunet.install:main"
+
+[tool.setuptools.packages.find]
+include = ["boneagunet*"]

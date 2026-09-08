@@ -76,48 +76,8 @@ intensity projections.
 The second segmentation model receives both the image and predicted edge mask
 to complete the cortical surface used during atlas subtraction.
 
-## Hugging Face asset layout
+## Model assets
 
-Do not upload training data, cross-validation predictions, logs, or both best and
-final checkpoints. Publish only the inference files below:
-
-```text
-models/
-  strip/Dataset001_hand/nnUNetTrainer__nnUNetPlans__3d_fullres/
-    dataset.json
-    plans.json
-    fold_all/checkpoint_best.pth
-  edge/Dataset001_mcp/nnUNetTrainer__nnUNetPlans__3d_fullres/
-    dataset.json
-    plans.json
-    fold_all/checkpoint_final.pth
-  closed_edge/Dataset001_mcp/nnUNetTrainerWithAttention__nnUNetPlans__3d_fullres/
-    dataset.json
-    plans.json
-    fold_all/checkpoint_final.pth
-  erosion/Dataset001_mcp/nnUNetTrainerWithAttention__nnUNetPlans__3d_fullres/
-    dataset.json
-    plans.json
-    fold_all/checkpoint_final.pth
-atlases/
-  mcp2/atlas_mc.nii.gz
-  mcp2/atlas_pp.nii.gz
-  mcp3/atlas_mc.nii.gz
-  mcp3/atlas_pp.nii.gz
-manifest.json
-```
-
-The source ARC names for MC are `atlas_mc_aligned.nii.gz`; rename them to
-`atlas_mc.nii.gz` in the published bundle. Total checkpoint size is about 1.6 GB;
-the four selected atlases add about 122 MB.
-
-Assets are published at
+The trained models and MCP2/MCP3 atlases are hosted at
 [YousifKhoury/BoneAGUNet](https://huggingface.co/YousifKhoury/BoneAGUNet) and are
 downloaded automatically or explicitly with `boneagunet-install`.
-
-## Processing geometry
-
-The trained models expect the inherited pipeline's 1 mm working header, so voxel
-values are not interpolated before inference. Candidate physical measurements and
-distance thresholds use the original input spacing. The final mask receives the
-original input spacing, origin, and direction.
